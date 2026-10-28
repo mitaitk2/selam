@@ -4,40 +4,65 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Panel</title>
+<title>Webhook Paneli</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header><div class="ust">
-<a class="marka" href="index.html" style="text-decoration:none">Panel</a>
-<nav>
-<a href="index.html" class="aktif">Ana sayfa</a>
-<a href="komutlar.html">Komutlar</a>
-<a href="kurallar.html">Kurallar</a>
-<a href="sistemler.html">Sistemler</a>
-</nav>
-</div></header>
+<header>
+  <h1>Webhook <span class="neon">Paneli</span></h1>
+  <button id="kanalBtn" class="ikincil">Kanallar</button>
+</header>
 <main>
-<h1>Sistemler <span class="neon">çalışıyor mu?</span><br>Buradan bak.</h1>
-<p class="giris">Yönettiğin sistemlerin durumu, komutlar ve kurallar tek yerde.</p>
-
-<section class="bolum">
-<h2>Sistem durumu</h2>
-<div class="durum-liste">
-  <div class="durum"><i class="nokta"></i><div><b>Sistem A</b><small>Ana sistem</small></div><span class="etiket">Çalışıyor</span></div>
-  <div class="durum"><i class="nokta bakim"></i><div><b>Sistem B</b><small>Güncelleme bekliyor</small></div><span class="etiket">Bakımda</span></div>
-  <div class="durum"><i class="nokta kapali"></i><div><b>Sistem C</b><small>Şu an kapalı</small></div><span class="etiket">Kapalı</span></div>
-</div>
-<div class="kisayol">
-  <a class="dugme" href="komutlar.html">Komutlara git</a>
-  <a class="dugme cam" href="kurallar.html">Kurallara git</a>
-</div>
-</section>
+  <section class="yazi">
+    <div class="satir">
+      <label>Kanal <select id="kanal"></select></label>
+      <div class="tur">
+        <button type="button" data-tur="duz" class="on">Düz mesaj</button>
+        <button type="button" data-tur="embed">Embed</button>
+      </div>
+    </div>
+    <div id="embedAlan" class="embed" hidden>
+      <input id="eBaslik" type="text" maxlength="256" placeholder="Başlık">
+      <input id="eUrl" type="url" placeholder="Başlık linki (https://...)">
+      <input id="eYazar" type="text" maxlength="256" placeholder="Yazar adı">
+      <input id="eAlt" type="text" maxlength="2048" placeholder="Alt bilgi">
+      <input id="eResim" type="url" placeholder="Büyük görsel linki">
+      <input id="eKucuk" type="url" placeholder="Küçük görsel linki">
+      <label class="renk">Renk <input id="eRenk" type="color" value="#ff3fd8"></label>
+      <label class="renk"><input id="eZaman" type="checkbox"> Zaman damgası</label>
+      <div id="alanlar" class="tam"></div>
+      <button type="button" id="alanEkle" class="ikincil tam">Alan ekle</button>
+    </div>
+    <div class="gonderSatir">
+      <textarea id="metin" maxlength="1000" placeholder="Mesajını yaz, Enter ile gönder"></textarea>
+      <button id="gonder" type="button">Gönder!</button>
+    </div>
+    <div class="alt">
+      <span id="sayac">0 / 1000</span>
+      <label id="ttsEtiket"><input id="tts" type="checkbox"> Sesli okuma (TTS)</label>
+    </div>
+  </section>
+  <aside>
+    <div class="gbas"><h2>Geçmiş</h2><button id="temizle" class="ikincil">Temizle</button></div>
+    <ul id="liste"></ul>
+  </aside>
 </main>
-<footer>Özel panel. Yalnızca yetkili kişiler içindir.</footer>
+
+<dialog id="dlg">
+  <h2>Kanallar</h2>
+  <p class="not">Webhook adresleri sadece bu tarayıcıda saklanır, koda yazılmaz.</p>
+  <ul id="kanalListe"></ul>
+  <div class="form">
+    <input id="kAd" type="text" maxlength="40" placeholder="Kanal adı">
+    <input id="kUrl" type="text" placeholder="Discord webhook adresi">
+    <button id="kEkle" type="button">Ekle</button>
+  </div>
+  <button id="kapat" type="button" class="ikincil">Kapat</button>
+</dialog>
+<div id="toasts"></div>
 <script src="script.js"></script>
 </body>
 </html>
